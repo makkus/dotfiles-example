@@ -15,8 +15,7 @@ runs:
     frecks:
      - install:
          vars:
-           ignore:
+           no_install:
              - freckles
      - stow
-      
  
