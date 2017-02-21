@@ -1,6 +1,5 @@
 # don't run this on your 'real' machine, since it will delete your '.profile' file
 vars:
-  ensure_pkg_manager: yes     # necessary, because we are using nix and didn't install it seperately (which we could do)
   upgrade_packages: yes       # might as well, since bootstrapping is usually done just after install
   dotfiles:
     # installs 'zsh' and 'bash' using default and 'zile' using nix package manager (has .nix.frkl marker file in folder)
@@ -12,8 +11,12 @@ vars:
         pkg_mgr: nix
 
 runs:
-  - name: checkout dotfiles
+  - name: checkout dotfiles & install necessary package managers
+    vars:
+      pkg_mgrs:
+        - nix
     tasks:
+      - install-pkg-managers
       - checkout-dotfiles
   - name: install applications, delete conflicting files and stow configs
     tasks:
